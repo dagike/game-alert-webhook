@@ -58,13 +58,15 @@ Paste your webhook URL and your API key into `.env`. The file stays on your Pi. 
 ### 5. Add your configuration and wishlist
 
 ```
-mkdir config
+mkdir config data
 cp config.example.yaml config/config.yaml
 cp wishlist.yaml config/wishlist.yaml
 nano config/wishlist.yaml
 ```
 
 Write one game title per line in `config/wishlist.yaml`. Use the exact name that the store shows.
+
+You must create the `data` folder yourself, as in the commands above. If it does not exist, Docker creates it as the root user, and the bot fails with the error `unable to open database file`. To repair this, run `sudo chown -R 1000:1000 data`.
 
 ### 6. Test without posting
 
