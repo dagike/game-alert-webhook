@@ -1,0 +1,193 @@
+[
+ {
+  "id": "11111111-1111-1111-1111-111111111111",
+  "historyLow": {
+   "all": {
+    "amount": 7.49,
+    "amountInt": 749,
+    "currency": "CAD"
+   },
+   "y1": {
+    "amount": 7.49,
+    "amountInt": 749,
+    "currency": "CAD"
+   },
+   "m3": {
+    "amount": 9.99,
+    "amountInt": 999,
+    "currency": "CAD"
+   }
+  },
+  "deals": [
+   {
+    "shop": {
+     "id": 61,
+     "name": "Steam"
+    },
+    "price": {
+     "amount": 7.49,
+     "amountInt": 749,
+     "currency": "CAD"
+    },
+    "regular": {
+     "amount": 24.99,
+     "amountInt": 2499,
+     "currency": "CAD"
+    },
+    "cut": 70,
+    "voucher": null,
+    "storeLow": {
+     "amount": 7.49,
+     "amountInt": 749,
+     "currency": "CAD"
+    },
+    "flag": null,
+    "drm": [],
+    "platforms": [],
+    "timestamp": "2026-11-05T10:00:00+01:00",
+    "expiry": "2026-11-20T10:00:00+01:00",
+    "url": "https://itad.link/hades"
+   },
+   {
+    "shop": {
+     "id": 35,
+     "name": "GOG"
+    },
+    "price": {
+     "amount": 9.99,
+     "amountInt": 999,
+     "currency": "CAD"
+    },
+    "regular": {
+     "amount": 24.99,
+     "amountInt": 2499,
+     "currency": "CAD"
+    },
+    "cut": 60,
+    "voucher": null,
+    "storeLow": {
+     "amount": 9.99,
+     "amountInt": 999,
+     "currency": "CAD"
+    },
+    "flag": null,
+    "drm": [],
+    "platforms": [],
+    "timestamp": "2026-11-05T10:00:00+01:00",
+    "expiry": null,
+    "url": "https://itad.link/hades-gog"
+   }
+  ]
+ },
+ {
+  "id": "11111111-1111-1111-1111-111111111112",
+  "historyLow": {
+   "all": {
+    "amount": 10.0,
+    "amountInt": 1000,
+    "currency": "CAD"
+   },
+   "y1": {
+    "amount": 10.0,
+    "amountInt": 1000,
+    "currency": "CAD"
+   },
+   "m3": {
+    "amount": 12.0,
+    "amountInt": 1200,
+    "currency": "CAD"
+   }
+  },
+  "deals": [
+   {
+    "shop": {
+     "id": 61,
+     "name": "Steam"
+    },
+    "price": {
+     "amount": 10.4,
+     "amountInt": 1040,
+     "currency": "CAD"
+    },
+    "regular": {
+     "amount": 20.0,
+     "amountInt": 2000,
+     "currency": "CAD"
+    },
+    "cut": 48,
+    "voucher": null,
+    "storeLow": {
+     "amount": 10.4,
+     "amountInt": 1040,
+     "currency": "CAD"
+    },
+    "flag": null,
+    "drm": [],
+    "platforms": [],
+    "timestamp": "2026-11-05T10:00:00+01:00",
+    "expiry": null,
+    "url": "https://itad.link/celeste"
+   }
+  ]
+ },
+ {
+  "id": "11111111-1111-1111-1111-111111111113",
+  "historyLow": {
+   "all": {
+    "amount": 5.0,
+    "amountInt": 500,
+    "currency": "CAD"
+   },
+   "y1": {
+    "amount": 5.0,
+    "amountInt": 500,
+    "currency": "CAD"
+   },
+   "m3": {
+    "amount": 5.0,
+    "amountInt": 500,
+    "currency": "CAD"
+   }
+  },
+  "deals": [
+   {
+    "shop": {
+     "id": 61,
+     "name": "Steam"
+    },
+    "price": {
+     "amount": 19.99,
+     "amountInt": 1999,
+     "currency": "CAD"
+    },
+    "regular": {
+     "amount": 19.99,
+     "amountInt": 1999,
+     "currency": "CAD"
+    },
+    "cut": 0,
+    "voucher": null,
+    "storeLow": {
+     "amount": 19.99,
+     "amountInt": 1999,
+     "currency": "CAD"
+    },
+    "flag": null,
+    "drm": [],
+    "platforms": [],
+    "timestamp": "2026-11-05T10:00:00+01:00",
+    "expiry": null,
+    "url": "https://itad.link/hollow"
+   }
+  ]
+ },
+ {
+  "id": "11111111-1111-1111-1111-111111111114",
+  "historyLow": {
+   "all": null,
+   "y1": null,
+   "m3": null
+  },
+  "deals": []
+ }
+]

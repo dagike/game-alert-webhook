@@ -1,0 +1,5 @@
+# One game title per line. The bot looks up each title on IsThereAnyDeal.
+games:
+  - Hades
+  - Celeste
+  - Hollow Knight
