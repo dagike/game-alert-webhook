@@ -1,0 +1,12 @@
+services:
+  gamealert:
+    build: .
+    image: game-alert-webhook
+    container_name: game-alert-webhook
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./data:/app/data          # sent-items database
+      - ./config:/config:ro       # config.yaml and wishlist.yaml

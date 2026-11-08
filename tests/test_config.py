@@ -31,3 +31,10 @@ def test_wishlist(tmp_path):
     f.write_text("games:\n  - Hades\n  - ' Celeste '\n  - ''\n")
     assert load_wishlist(f) == ["Hades", "Celeste"]
     assert load_wishlist(tmp_path / "missing.yaml") == []
+
+
+def test_wishlist_file_found_next_to_config(tmp_path):
+    (tmp_path / "config.yaml").write_text("timezone: UTC\n")
+    (tmp_path / "wishlist.yaml").write_text("games: [Hades]\n")
+    s = load_settings(tmp_path / "config.yaml", tmp_path / "none.env")
+    assert load_wishlist(s.wishlist_file) == ["Hades"]

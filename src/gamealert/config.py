@@ -58,6 +58,10 @@ def load_settings(config_path: str | Path = "config.yaml", env_file: str | Path 
     path = Path(config_path)
     if path.exists():
         data = yaml.safe_load(path.read_text()) or {}
+        # A relative wishlist_file is read from the folder that holds config.yaml.
+        wishlist = Path(data.get("wishlist_file", "wishlist.yaml"))
+        if not wishlist.is_absolute() and (path.parent / wishlist).exists():
+            data["wishlist_file"] = str(path.parent / wishlist)
     env = Env(_env_file=env_file)
     data["discord_webhook_url"] = env.discord_webhook_url
     data["itad_api_key"] = env.itad_api_key
