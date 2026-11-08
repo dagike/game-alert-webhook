@@ -46,4 +46,4 @@ class PsPlus:
     def fetch(self) -> list[Item]:
         r = self.client.get(FEED_URL)
         r.raise_for_status()
-        return parse_feed(r.text)
+        return parse_feed(r.text)[:1]  # only the newest monthly post counts as new

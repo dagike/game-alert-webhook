@@ -26,4 +26,11 @@ def test_empty_feed():
 @respx.mock
 def test_fetch():
     respx.get(FEED_URL).mock(return_value=httpx.Response(200, text=XML))
-    assert len(PsPlus().fetch()) == 2
+    assert len(PsPlus().fetch()) == 1
+
+
+@respx.mock
+def test_fetch_returns_only_newest_post():
+    respx.get(FEED_URL).mock(return_value=httpx.Response(200, text=XML))
+    items = PsPlus().fetch()
+    assert [i.title for i in items] == ["PS Plus Essential: October games"]
