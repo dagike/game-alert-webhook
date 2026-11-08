@@ -1,0 +1,30 @@
+[project]
+name = "game-alert-webhook"
+version = "0.1.0"
+description = "Twice-daily Discord summary of free games, PS Plus, Fanatical deals and wishlist all-time lows."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+  "httpx>=0.27",
+  "feedparser>=6.0",
+  "pyyaml>=6.0",
+  "apscheduler>=3.10,<4",
+  "pydantic-settings>=2.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "respx>=0.21", "ruff>=0.5"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
