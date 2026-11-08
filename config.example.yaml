@@ -1,0 +1,14 @@
+# Copy this file to config.yaml to change the defaults.
+timezone: America/Toronto
+run_times: ["09:00", "21:00"]   # two summaries per day, 24-hour clock
+country: CA
+currency: CAD
+post_when_empty: true            # post a short "No new deals" line when nothing is new
+wishlist_tolerance_percent: 0    # 5 means: alert when within 5% of the all-time low
+wishlist_file: wishlist.yaml
+database_path: data/state.db
+sources:
+  free_games: true
+  ps_plus: true
+  fanatical: true
+  wishlist: true
