@@ -8,6 +8,7 @@ import sys
 
 from .config import load_settings
 from .runner import run_once
+from .scheduler import serve
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -15,7 +16,8 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     once = sub.add_parser("run-once", help="check all sources once and post a summary")
     once.add_argument("--dry-run", action="store_true", help="print the summary, do not post or save state")
-    for p in (once,):
+    serve_cmd = sub.add_parser("serve", help="run the summary at the scheduled times, forever")
+    for p in (once, serve_cmd):
         p.add_argument("--config", default="config.yaml")
         p.add_argument("--env-file", default=".env")
     args = parser.parse_args(argv)
@@ -31,6 +33,8 @@ def main(argv: list[str] | None = None) -> int:
             result.messages_sent,
             ", ".join(result.unavailable) or "none",
         )
+    elif args.command == "serve":
+        serve(settings)
     return 0
 
 
