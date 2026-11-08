@@ -1,0 +1,472 @@
+{
+ "pickandmix": [
+  {
+   "_id": "5ea832591b79690085a6b676",
+   "cover_image": "c3a387ed-a03e-43e2-b421-319cbd48e5fe.jpeg",
+   "name": "Excel Build your own Bundle with Zenva",
+   "products": [
+    {
+     "name": "Craft Excel Pivot Tables for Data Reporting"
+    },
+    {
+     "name": "Discover Excel Formulas"
+    },
+    {
+     "name": "Excel Logic Functions for Beginners"
+    }
+   ],
+   "sku": "PNM0056",
+   "slug": "excel-build-your-own-bundle-with-zenva",
+   "tiers": [
+    {
+     "quantity": 2,
+     "price": {
+      "GBP": 225,
+      "EUR": 254.99999999999997,
+      "USD": 249.00000000000003,
+      "CAD": 325,
+      "AUD": 375,
+      "RUB": 22000,
+      "JPY": 29000
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b679"
+    },
+    {
+     "quantity": 5,
+     "price": {
+      "GBP": 455,
+      "EUR": 505,
+      "USD": 499,
+      "CAD": 655,
+      "AUD": 755,
+      "RUB": 44000,
+      "JPY": 58500
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b678"
+    },
+    {
+     "quantity": 12,
+     "price": {
+      "GBP": 905.0000000000001,
+      "EUR": 1010,
+      "USD": 999,
+      "CAD": 1310,
+      "AUD": 1510,
+      "RUB": 88000,
+      "JPY": 117000
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b677"
+    }
+   ],
+   "type": "software-bundle",
+   "valid_from": "2020-09-04T14:00:00.000Z",
+   "valid_until": null
+  },
+  {
+   "_id": "6aec602831c42e5ce48bd73c",
+   "cover_image": "b9735dcc-c0f5-4189-9b02-ac9b697eda5f.jpeg",
+   "name": "Build your own Birthday Bonanza Bundle",
+   "products": [
+    {
+     "name": "The Last Cat in the Universe"
+    },
+    {
+     "name": "Toy Shire"
+    },
+    {
+     "name": "Walk The Frog"
+    }
+   ],
+   "sku": "PNM0747",
+   "slug": "build-your-own-birthday-bonanza-bundle",
+   "tiers": [
+    {
+     "quantity": 2,
+     "price": {
+      "GBP": 699,
+      "EUR": 699,
+      "USD": 699,
+      "CAD": 978.9999999999999,
+      "AUD": 1099,
+      "RUB": 67500,
+      "JPY": 122000
+     },
+     "_id": "6aec602831c42e5ce48bd73e"
+    },
+    {
+     "quantity": 3,
+     "price": {
+      "GBP": 999,
+      "EUR": 999,
+      "USD": 999,
+      "CAD": 1399,
+      "AUD": 1575,
+      "RUB": 96000,
+      "JPY": 174000
+     },
+     "_id": "6aec602831c42e5ce48bd73f"
+    },
+    {
+     "quantity": 5,
+     "price": {
+      "GBP": 1499,
+      "EUR": 1499,
+      "USD": 1499,
+      "CAD": 2099,
+      "AUD": 2365,
+      "RUB": 144500,
+      "JPY": 261000
+     },
+     "_id": "6aec602831c42e5ce48bd740"
+    },
+    {
+     "quantity": 10,
+     "price": {
+      "GBP": 2399,
+      "EUR": 2399,
+      "USD": 2399,
+      "CAD": 3354.9999999999995,
+      "AUD": 3779,
+      "RUB": 231000,
+      "JPY": 418000
+     },
+     "_id": "6aec602831c42e5ce48bd741"
+    }
+   ],
+   "type": "bundle",
+   "valid_from": "2026-11-06T14:00:00.000Z",
+   "valid_until": "2026-12-11T08:00:00.000Z"
+  },
+  {
+   "_id": "68c9922183e04af960f7fb95",
+   "cover_image": "1cbf5d94-f9ea-4dc9-87ec-d188717b6eb9.jpeg",
+   "name": "Nightmare Tales Build your own Graphic Novels Bundle",
+   "products": [
+    {
+     "name": "He Who Fights With Monsters Collected Edition"
+    },
+    {
+     "name": "The Fall Of The House Of Usher: A Graphic Novel"
+    },
+    {
+     "name": "Lovecraft Vol. 1: Unknown Kadath"
+    }
+   ],
+   "sku": "PNM0567",
+   "slug": "nightmare-tales-build-your-own-graphic-novels-bundle",
+   "tiers": [
+    {
+     "quantity": 2,
+     "price": {
+      "GBP": 180,
+      "EUR": 210,
+      "USD": 199,
+      "CAD": 285,
+      "AUD": 315,
+      "RUB": 19500,
+      "JPY": 34700
+     },
+     "_id": "68c9922183e04af960f7fb97"
+    },
+    {
+     "quantity": 6,
+     "price": {
+      "GBP": 455,
+      "EUR": 530,
+      "USD": 499,
+      "CAD": 710,
+      "AUD": 790,
+      "RUB": 49000,
+      "JPY": 86900
+     },
+     "_id": "68c9922183e04af960f7fb98"
+    },
+    {
+     "quantity": 14,
+     "price": {
+      "GBP": 635,
+      "EUR": 745,
+      "USD": 699,
+      "CAD": 994.9999999999999,
+      "AUD": 1110,
+      "RUB": 68700,
+      "JPY": 121700
+     },
+     "_id": "68c9922183e04af960f7fb99"
+    }
+   ],
+   "type": "book-bundle",
+   "valid_from": "2026-10-08T09:00:00.000Z",
+   "valid_until": "2026-12-03T23:59:00.000Z"
+  },
+  {
+   "_id": "6aeb3b9763c594fdecc5de6e",
+   "cover_image": "39aba891-dddd-42f4-9f41-d18daa19a89a.jpeg",
+   "name": "Platinum Collection - Build your own Bundle (November 2026)",
+   "products": [
+    {
+     "name": "LEGO\u00ae Star Wars\u2122: The Skywalker Saga"
+    },
+    {
+     "name": "Chained Together"
+    },
+    {
+     "name": "Ballionaire"
+    }
+   ],
+   "sku": "PNM0746",
+   "slug": "platinum-collection-build-your-own-bundle",
+   "tiers": [
+    {
+     "quantity": 3,
+     "price": {
+      "GBP": 999,
+      "EUR": 999,
+      "USD": 999,
+      "CAD": 1396,
+      "AUD": 1575,
+      "RUB": 99900,
+      "JPY": 174000
+     },
+     "_id": "6aeb3b9763c594fdecc5de70"
+    },
+    {
+     "quantity": 5,
+     "price": {
+      "GBP": 1499,
+      "EUR": 1499,
+      "USD": 1499,
+      "CAD": 2099,
+      "AUD": 2360,
+      "RUB": 149500,
+      "JPY": 261000
+     },
+     "_id": "6aeb3b9763c594fdecc5de71"
+    },
+    {
+     "quantity": 7,
+     "price": {
+      "GBP": 1995,
+      "EUR": 1995,
+      "USD": 1995,
+      "CAD": 2799,
+      "AUD": 3149,
+      "RUB": 199500,
+      "JPY": 347200
+     },
+     "_id": "6aeb3b9763c594fdecc5de72"
+    }
+   ],
+   "type": "bundle",
+   "valid_from": "2026-11-05T14:00:00.000Z",
+   "valid_until": "2026-12-03T13:59:00.000Z"
+  },
+  {
+   "_id": "6abf929cac9bfea481b5f3f9",
+   "cover_image": "6a697e14-7416-4b58-b69f-520484088519.jpeg",
+   "name": "Build your own Triple Pack (Fall 2026)",
+   "products": [
+    {
+     "name": "Moonlighter: Complete Edition"
+    },
+    {
+     "name": "Children of Morta: Complete Edition"
+    },
+    {
+     "name": "Biped"
+    }
+   ],
+   "sku": "PNM0733",
+   "slug": "build-your-own-triple-pack-fall-2026",
+   "tiers": [
+    {
+     "quantity": 3,
+     "price": {
+      "GBP": 299,
+      "EUR": 299,
+      "USD": 299,
+      "CAD": 425,
+      "AUD": 469.00000000000006,
+      "RUB": 30000,
+      "JPY": 52500
+     },
+     "_id": "6abf929cac9bfea481b5f3fb"
+    },
+    {
+     "quantity": 6,
+     "price": {
+      "GBP": 569,
+      "EUR": 569,
+      "USD": 569,
+      "CAD": 809,
+      "AUD": 894.9999999999999,
+      "RUB": 57000,
+      "JPY": 99000
+     },
+     "_id": "6abf929cac9bfea481b5f3fc"
+    },
+    {
+     "quantity": 9,
+     "price": {
+      "GBP": 809,
+      "EUR": 809,
+      "USD": 809,
+      "CAD": 1149,
+      "AUD": 1269,
+      "RUB": 81000,
+      "JPY": 140000
+     },
+     "_id": "6abf929cac9bfea481b5f3fd"
+    }
+   ],
+   "type": "bundle",
+   "valid_from": "2026-10-05T13:00:00.000Z",
+   "valid_until": "2026-11-09T08:00:00.000Z"
+  },
+  {
+   "_id": "expired1",
+   "cover_image": "c3a387ed-a03e-43e2-b421-319cbd48e5fe.jpeg",
+   "name": "Expired Bundle",
+   "products": [
+    {
+     "name": "Craft Excel Pivot Tables for Data Reporting"
+    },
+    {
+     "name": "Discover Excel Formulas"
+    },
+    {
+     "name": "Excel Logic Functions for Beginners"
+    }
+   ],
+   "sku": "PNM0056",
+   "slug": "excel-build-your-own-bundle-with-zenva",
+   "tiers": [
+    {
+     "quantity": 2,
+     "price": {
+      "GBP": 225,
+      "EUR": 254.99999999999997,
+      "USD": 249.00000000000003,
+      "CAD": 325,
+      "AUD": 375,
+      "RUB": 22000,
+      "JPY": 29000
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b679"
+    },
+    {
+     "quantity": 5,
+     "price": {
+      "GBP": 455,
+      "EUR": 505,
+      "USD": 499,
+      "CAD": 655,
+      "AUD": 755,
+      "RUB": 44000,
+      "JPY": 58500
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b678"
+    },
+    {
+     "quantity": 12,
+     "price": {
+      "GBP": 905.0000000000001,
+      "EUR": 1010,
+      "USD": 999,
+      "CAD": 1310,
+      "AUD": 1510,
+      "RUB": 88000,
+      "JPY": 117000
+     },
+     "invisible": false,
+     "_id": "5ea832591b79690085a6b677"
+    }
+   ],
+   "type": "software-bundle",
+   "valid_from": "2026-10-20T00:00:00.000Z",
+   "valid_until": "2026-11-01T00:00:00.000Z"
+  }
+ ],
+ "images": [
+  {
+   "name": "Birthday Bash 2026 Footer Banner",
+   "advert_type": "ProductFooterBanner",
+   "start_date": "2026-11-02T16:00:00.000Z",
+   "end_date": "2026-11-09T16:00:00.000Z",
+   "appears_on": {},
+   "url": "https://www.fanatical.com/en/deals"
+  },
+  {
+   "name": "Football Manager 27 (Pre-Order)",
+   "advert_type": "MidPageBanner",
+   "start_date": "2026-10-29T18:00:00.000Z",
+   "end_date": "2026-11-09T23:59:00.000Z",
+   "appears_on": {
+    "home": true
+   },
+   "url": "https://www.fanatical.com/en/game/football-manager-27"
+  },
+  {
+   "name": "Birthday Bash 2026 Home Page",
+   "advert_type": "CarouselBackground",
+   "start_date": "2026-11-02T16:00:00.000Z",
+   "end_date": "2026-11-15T23:59:00.000Z",
+   "appears_on": {
+    "home": true
+   },
+   "url": "https://www.fanatical.com/en/deals"
+  },
+  {
+   "name": "Birthday Bash 2026 Filter Backgrounds",
+   "advert_type": "OnSale",
+   "start_date": "2026-11-02T16:00:00.000Z",
+   "end_date": "2026-11-15T23:59:00.000Z",
+   "appears_on": null,
+   "url": null
+  },
+  {
+   "name": "Birthday Bash 2026 Slim Banner",
+   "advert_type": "SlimBanner",
+   "start_date": "2026-11-02T16:00:00.000Z",
+   "end_date": "2026-11-15T23:59:00.000Z",
+   "appears_on": {},
+   "url": "https://www.fanatical.com/en/deals"
+  },
+  {
+   "name": "Birthday Bash 2026 Deals",
+   "advert_type": "TakeOver",
+   "start_date": "2026-11-02T16:00:00.000Z",
+   "end_date": "2026-11-15T23:59:00.000Z",
+   "appears_on": {
+    "on_sale": true
+   },
+   "url": "https://www.fanatical.com/en/deals"
+  },
+  {
+   "name": "Omen Mystery Game Giveaway",
+   "advert_type": "TakeOver",
+   "start_date": "2024-05-13T13:30:00.000Z",
+   "end_date": "2026-12-31T00:00:00.000Z",
+   "appears_on": {
+    "home": true,
+    "on_sale": true
+   },
+   "url": "https://www.fanatical.com/en/on-sale"
+  },
+  {
+   "name": "The FantasyVerse Banner",
+   "advert_type": "TakeOver",
+   "start_date": "2024-11-15T00:00:00.000Z",
+   "end_date": "2026-11-30T00:00:00.000Z",
+   "appears_on": {
+    "fantasyverse": true
+   },
+   "url": "https://www.fanatical.com/en/fantasyverse"
+  }
+ ]
+}
