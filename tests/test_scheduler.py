@@ -22,7 +22,7 @@ def test_two_daily_jobs_in_toronto_time():
     s = build_scheduler(Settings(), job=lambda: None)
     now = datetime(2026, 11, 7, 10, 0, tzinfo=TZ)
     times = fire_times(s, now)
-    assert [t.strftime("%Y-%m-%d %H:%M") for t in times] == ["2026-11-07 21:00", "2026-11-08 09:00"]
+    assert [t.strftime("%Y-%m-%d %H:%M") for t in times] == ["2026-11-07 13:05", "2026-11-08 09:00"]
     assert all(t.tzinfo is not None and t.utcoffset().total_seconds() == -5 * 3600 for t in times)
 
 

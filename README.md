@@ -90,7 +90,7 @@ This command posts to Discord. It also marks the listed items as sent, so the ne
 docker compose up -d --build
 ```
 
-The bot now runs at 09:00 and 21:00 in the `America/Toronto` time zone. The container restarts after a Pi reboot.
+The bot now checks at 09:00 and 13:05 in the `America/Toronto` time zone. It posts only if it finds new deals or a problem. The container restarts after a Pi reboot.
 
 ## Daily use
 
@@ -126,9 +126,9 @@ GitHub Actions builds an image for the Pi (arm64) on every push to `main`. You c
 Edit `config/config.yaml`, then restart with `docker compose restart`. The file `config.example.yaml` lists every option.
 
 - `timezone`: the time zone name for the schedule. The default is `America/Toronto`.
-- `run_times`: the times of day for the summary, in 24-hour `HH:MM` form. The default is two times, `09:00` and `21:00`.
+- `run_times`: the times of day for the summary, in 24-hour `HH:MM` form. The default is two times, `09:00` and `13:05`.
 - `country` and `currency`: the store region for wishlist prices. The default is `CA` and `CAD`.
-- `post_when_empty`: if `true`, the bot posts a short "no new deals" line when nothing is new.
+- `post_when_empty`: if `true`, the bot also posts a short "no new deals" line when nothing is new. The default is `false`. The bot always posts when a problem occurs.
 - `report_when_ok`: if `true`, the "Run status" box appears in every summary. If `false`, it appears only when a problem occurs.
 - `wishlist_tolerance_percent`: if a price is within this percent of the all-time low, the bot sends an alert. The default is `0`, which means exactly at the low.
 - `sources`: set one source to `false` to turn it off. The names are `free_games`, `ps_plus`, `fanatical`, and `wishlist`.

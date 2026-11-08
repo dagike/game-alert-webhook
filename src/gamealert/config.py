@@ -27,10 +27,10 @@ class Sources(BaseModel):
 
 class Settings(BaseModel):
     timezone: str = "America/Toronto"
-    run_times: list[str] = Field(default_factory=lambda: ["09:00", "21:00"])
+    run_times: list[str] = Field(default_factory=lambda: ["09:00", "13:05"])
     country: str = "CA"
     currency: str = "CAD"
-    post_when_empty: bool = True
+    post_when_empty: bool = False
     report_when_ok: bool = True
     wishlist_tolerance_percent: float = 0.0
     wishlist_file: str = "wishlist.yaml"

@@ -5,9 +5,10 @@ from gamealert.config import Settings, load_settings, load_wishlist
 
 def test_defaults_when_no_files(tmp_path):
     s = load_settings(tmp_path / "none.yaml", tmp_path / "none.env")
-    assert s.run_times == ["09:00", "21:00"]
+    assert s.run_times == ["09:00", "13:05"]
     assert s.country == "CA"
-    assert s.parsed_run_times() == [(9, 0), (21, 0)]
+    assert s.parsed_run_times() == [(9, 0), (13, 5)]
+    assert s.post_when_empty is False
 
 
 def test_yaml_and_env_merge(tmp_path, monkeypatch):

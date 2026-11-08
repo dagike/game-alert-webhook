@@ -181,3 +181,11 @@ def test_log_filter_hides_secrets_in_message_and_traceback(capsys):
     err = capsys.readouterr().err
     assert "Traceback" in err and "RuntimeError" in err
     assert KEY not in err and "SECRETTOKEN" not in err
+
+
+@respx.mock
+def test_default_settings_stay_quiet_on_a_clean_empty_run():
+    route = respx.post(URL).mock(return_value=httpx.Response(204))
+    assert Settings().post_when_empty is False and Settings().report_when_ok is True
+    result = run_once(settings(), sources=[Fake("free_games", [])], state=State(":memory:"))
+    assert result.messages_sent == 0 and route.call_count == 0
