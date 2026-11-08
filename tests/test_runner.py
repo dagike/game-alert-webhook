@@ -45,7 +45,7 @@ def test_failed_source_does_not_stop_others():
     respx.post(URL).mock(return_value=httpx.Response(204))
     sources = [Fake("fanatical", error=RuntimeError("boom")), Fake("free_games", [it(1)])]
     result = run_once(settings(), sources=sources, state=State(":memory:"))
-    assert result.unavailable == ["fanatical"]
+    assert result.report.failed_sources == ["fanatical"]
     assert [i.id for i in result.sections["free_games"]] == ["1"]
 
 
@@ -70,7 +70,7 @@ def test_dry_run_posts_nothing_and_saves_nothing(capsys):
 
 
 def test_render_text_empty():
-    assert render_text({"free_games": []}, []) == "No new deals.\n"
+    assert render_text({"free_games": []}) == "No new deals.\n"
 
 
 @respx.mock

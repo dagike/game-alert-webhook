@@ -76,13 +76,30 @@ class FreeGames:
     def __init__(self, country: str = "CA", client: httpx.Client | None = None):
         self.country = country
         self.client = client or httpx.Client(timeout=20, headers={"User-Agent": "game-alert-webhook"})
+        self.warnings: list[str] = []
 
     def fetch(self) -> list[Item]:
-        r = self.client.get(EPIC_URL, params={"locale": "en-US", "country": self.country})
-        r.raise_for_status()
-        items = parse_epic(r.json())
+        """Epic and GamerPower are separate. One may fail while the other still works."""
+        self.warnings = []
+        items: list[Item] = []
+        failures = 0
+        try:
+            r = self.client.get(EPIC_URL, params={"locale": "en-US", "country": self.country})
+            r.raise_for_status()
+            items += parse_epic(r.json())
+        except (httpx.HTTPError, ValueError) as exc:
+            failures += 1
+            self.warnings.append(f"Epic Games Store unavailable: {type(exc).__name__}: {exc}")
         for platform, store in GAMERPOWER_PLATFORMS.items():
-            r = self.client.get(GAMERPOWER_URL, params={"platform": platform, "type": "game"})
-            if r.status_code == 200:
-                items += parse_gamerpower(r.json(), store)
+            try:
+                r = self.client.get(GAMERPOWER_URL, params={"platform": platform, "type": "game"})
+                if r.status_code == 200:
+                    items += parse_gamerpower(r.json(), store)
+                elif r.status_code != 201:  # 201 means "no giveaways right now"
+                    raise httpx.HTTPError(f"HTTP {r.status_code}")
+            except (httpx.HTTPError, ValueError) as exc:
+                failures += 1
+                self.warnings.append(f"GamerPower {store} unavailable: {type(exc).__name__}: {exc}")
+        if failures == 1 + len(GAMERPOWER_PLATFORMS):
+            raise RuntimeError("Epic and GamerPower both failed")
         return items

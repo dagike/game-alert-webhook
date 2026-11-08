@@ -34,3 +34,11 @@ def test_fetch_returns_only_newest_post():
     respx.get(FEED_URL).mock(return_value=httpx.Response(200, text=XML))
     items = PsPlus().fetch()
     assert [i.title for i in items] == ["PS Plus Essential: October games"]
+
+
+@respx.mock
+def test_warning_when_no_monthly_post_found():
+    respx.get(FEED_URL).mock(return_value=httpx.Response(200, text="<rss version='2.0'><channel></channel></rss>"))
+    source = PsPlus()
+    assert source.fetch() == []
+    assert "Monthly Games" in source.warnings[0]

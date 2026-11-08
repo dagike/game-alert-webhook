@@ -35,12 +35,6 @@ def test_split_messages_limits():
     assert [len(m) for m in split_messages(many)] == [10, 10, 5]
 
 
-def test_unavailable_embed():
-    embeds = build_embeds({"free_games": [it(1)]}, unavailable=["ps_plus"])
-    assert embeds[-1]["title"] == "Unavailable this run"
-    assert "PlayStation Plus" in embeds[-1]["description"]
-
-
 @respx.mock
 def test_send_summary_posts_json():
     route = respx.post(URL).mock(return_value=httpx.Response(204))

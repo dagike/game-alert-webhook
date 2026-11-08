@@ -10,19 +10,27 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 from .config import Settings
-from .runner import run_once
+from .discord import send_failure
+from .runner import run_once, secret_values
 
 log = logging.getLogger("gamealert")
 
 
-def _safe(job: Callable[[], object]) -> Callable[[], None]:
+def _safe(
+    job: Callable[[], object], on_error: Callable[[Exception], None] | None = None
+) -> Callable[[], None]:
     """Wrap a job so that an error is logged and never stops the scheduler."""
 
     def wrapper() -> None:
         try:
             job()
-        except Exception:
+        except Exception as exc:
             log.exception("Scheduled run failed")
+            if on_error:
+                try:
+                    on_error(exc)
+                except Exception:
+                    log.exception("Could not report the failure")
 
     return wrapper
 
@@ -31,10 +39,14 @@ def build_scheduler(settings: Settings, job: Callable[[], object] | None = None)
     """Create the scheduler with one cron job per run time. Raise ValueError on bad settings."""
     tz = ZoneInfo(settings.timezone)  # raises ZoneInfoNotFoundError (a KeyError) if unknown
     run = job or (lambda: run_once(settings))
+
+    def notify(exc: Exception) -> None:
+        if settings.discord_webhook_url:
+            send_failure(settings.discord_webhook_url, exc, secret_values(settings))
     scheduler = BlockingScheduler(timezone=tz)
     for hour, minute in settings.parsed_run_times():
         scheduler.add_job(
-            _safe(run),
+            _safe(run, notify),
             CronTrigger(hour=hour, minute=minute, timezone=tz),
             id=f"summary-{hour:02d}{minute:02d}",
             coalesce=True,  # if several runs were missed, run once

@@ -6,6 +6,7 @@ import time
 
 import httpx
 
+from .report import RunReport, redact
 from .sources.base import Item
 
 TITLES = {
@@ -23,6 +24,8 @@ COLORS = {
 DESC_LIMIT = 3800  # Discord allows 4096 per embed description
 MESSAGE_LIMIT = 5500  # Discord allows 6000 characters across all embeds in a message
 MAX_EMBEDS = 10
+STATUS_COLORS = {"ok": 0x2ECC71, "warning": 0xF1C40F, "error": 0xE74C3C}
+MAX_STATUS_LINES = 15
 
 
 def format_item(item: Item) -> str:
@@ -37,8 +40,35 @@ def format_item(item: Item) -> str:
     return "• " + " | ".join(parts)
 
 
-def build_embeds(sections: dict[str, list[Item]], unavailable: list[str] | None = None) -> list[dict]:
-    """One embed per non-empty section. A long section becomes several embeds."""
+def status_embed(report: RunReport, report_when_ok: bool = True) -> dict | None:
+    """The "Run status" embed. Return None for a clean run when report_when_ok is false."""
+    if report.level == "ok" and not report_when_ok:
+        return None
+    total = len(report.sources)
+    failed = len(report.failed_sources)
+    items = f"{report.new_items} new item{'' if report.new_items == 1 else 's'}"
+    took = f"{report.duration:.1f} s"
+    if report.level == "ok":
+        summary = f"All {total} sources OK, {items}, {took}"
+    else:
+        summary = f"{total - failed} of {total} sources OK, {items}, {took}"
+    lines = [
+        f"{TITLES.get(i.source, i.source)}: {i.level}: {i.message}"
+        for i in report.issues[:MAX_STATUS_LINES]
+    ]
+    if len(report.issues) > MAX_STATUS_LINES:
+        lines.append(f"and {len(report.issues) - MAX_STATUS_LINES} more")
+    return {
+        "title": "Run status",
+        "description": "\n".join([summary, *lines]),
+        "color": STATUS_COLORS[report.level],
+    }
+
+
+def build_embeds(
+    sections: dict[str, list[Item]], report: RunReport | None = None, report_when_ok: bool = True
+) -> list[dict]:
+    """One embed per non-empty section, then the run status. A long section becomes several embeds."""
     embeds: list[dict] = []
     for source, items in sections.items():
         if not items:
@@ -65,9 +95,9 @@ def build_embeds(sections: dict[str, list[Item]], unavailable: list[str] | None 
                     "color": COLORS.get(source, 0x95A5A6),
                 }
             )
-    if unavailable:
-        names = ", ".join(TITLES.get(u, u) for u in unavailable)
-        embeds.append({"title": "Unavailable this run", "description": names, "color": 0x7F8C8D})
+    status = status_embed(report, report_when_ok) if report else None
+    if status:
+        embeds.append(status)
     return embeds
 
 
@@ -113,14 +143,18 @@ def post(webhook_url: str, content: str, embeds: list[dict], client: httpx.Clien
 def send_summary(
     webhook_url: str,
     sections: dict[str, list[Item]],
-    unavailable: list[str] | None = None,
+    report: RunReport | None = None,
     header: str = "Game deals summary",
     post_when_empty: bool = True,
+    report_when_ok: bool = True,
 ) -> int:
     """Post the summary. Return the number of messages sent."""
-    embeds = build_embeds(sections, unavailable)
-    if not any(sections.values()):
-        if not post_when_empty:
+    embeds = build_embeds(sections, report, report_when_ok)
+    has_items = any(sections.values())
+    has_issues = bool(report and report.issues)
+    if not has_items:
+        # Problems are never hidden: post even when post_when_empty is false.
+        if not post_when_empty and not has_issues:
             return 0
         post(webhook_url, f"{header}: no new deals this time.", embeds)
         return 1
@@ -128,3 +162,10 @@ def send_summary(
     for i, group in enumerate(messages):
         post(webhook_url, header if i == 0 else "", group)
     return len(messages)
+
+
+def send_failure(webhook_url: str, exc: BaseException, secrets: list[str] | tuple[str, ...] = ()) -> None:
+    """Post a short red message when a whole run failed outside the sources."""
+    message = redact(f"{type(exc).__name__}: {exc}", secrets)
+    embed = {"title": "Run failed", "description": message, "color": STATUS_COLORS["error"]}
+    post(webhook_url, "Game deals summary: the run failed.", [embed])

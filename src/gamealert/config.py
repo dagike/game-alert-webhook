@@ -31,6 +31,7 @@ class Settings(BaseModel):
     country: str = "CA"
     currency: str = "CAD"
     post_when_empty: bool = True
+    report_when_ok: bool = True
     wishlist_tolerance_percent: float = 0.0
     wishlist_file: str = "wishlist.yaml"
     database_path: str = "data/state.db"

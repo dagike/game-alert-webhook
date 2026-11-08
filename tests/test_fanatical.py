@@ -50,3 +50,11 @@ def test_misspelled_takeover_suffix_is_removed():
     data = {"images": [{"name": "Black friday Takover", "advert_type": "TakeOver",
                         "start_date": "2025-10-31T00:00:00.000Z", "end_date": "2026-12-31T08:00:00.000Z"}]}
     assert [i.title for i in parse_promotions(data, NOW)] == ["Black friday"]
+
+
+@respx.mock
+def test_changed_format_gives_warnings():
+    respx.get(API_URL).mock(return_value=httpx.Response(200, json={"something": "else"}))
+    source = Fanatical(clock=lambda: NOW)
+    assert source.fetch() == []
+    assert len(source.warnings) == 2 and "pickandmix" in source.warnings[0]

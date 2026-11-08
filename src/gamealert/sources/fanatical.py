@@ -93,11 +93,17 @@ class Fanatical:
     def __init__(self, currency: str = "CAD", client: httpx.Client | None = None, clock=None):
         self.currency = currency
         self.clock = clock or (lambda: datetime.now(UTC))
+        self.warnings: list[str] = []
         self.client = client or httpx.Client(timeout=30, headers={"User-Agent": "Mozilla/5.0 game-alert-webhook"})
 
     def fetch(self) -> list[Item]:
         r = self.client.get(API_URL)
         r.raise_for_status()
         data = r.json()
+        self.warnings = [
+            f"Fanatical JSON has no '{key}' list. The site format may have changed."
+            for key in ("pickandmix", "images")
+            if not isinstance(data.get(key), list)
+        ]
         now = self.clock()
         return parse_bundles(data, now, self.currency) + parse_promotions(data, now)

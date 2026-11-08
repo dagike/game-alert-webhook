@@ -7,8 +7,26 @@ import logging
 import sys
 
 from .config import load_settings
-from .runner import run_once
+from .report import scrub
+from .runner import run_once, secret_values
 from .scheduler import serve
+
+
+class SecretFilter(logging.Filter):
+    """Remove API keys and webhook URLs from every log line, including tracebacks."""
+
+    def __init__(self, secrets: list[str]):
+        super().__init__()
+        self.secrets = secrets
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        record.msg = scrub(record.getMessage(), self.secrets)
+        record.args = ()
+        if record.exc_info and not record.exc_text:
+            record.exc_text = logging.Formatter().formatException(record.exc_info)
+        if record.exc_text:
+            record.exc_text = scrub(record.exc_text, self.secrets)
+        return True
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -25,13 +43,15 @@ def main(argv: list[str] | None = None) -> int:
     log = logging.getLogger("gamealert")
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     settings = load_settings(args.config, args.env_file)
+    for handler in logging.getLogger().handlers:
+        handler.addFilter(SecretFilter(secret_values(settings)))
     if args.command == "run-once":
         result = run_once(settings, dry_run=args.dry_run)
         log.info(
-            "Done: %d new items, %d messages sent, unavailable: %s",
+            "Done: %d new items, %d messages sent, failed sources: %s",
             result.new_count,
             result.messages_sent,
-            ", ".join(result.unavailable) or "none",
+            ", ".join(result.report.failed_sources) or "none",
         )
     elif args.command == "serve":
         serve(settings)

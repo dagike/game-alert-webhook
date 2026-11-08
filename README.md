@@ -127,8 +127,23 @@ Edit `config/config.yaml`, then restart with `docker compose restart`. The file 
 - `run_times`: the times of day for the summary, in 24-hour `HH:MM` form. The default is two times, `09:00` and `21:00`.
 - `country` and `currency`: the store region for wishlist prices. The default is `CA` and `CAD`.
 - `post_when_empty`: if `true`, the bot posts a short "no new deals" line when nothing is new.
+- `report_when_ok`: if `true`, the "Run status" box appears in every summary. If `false`, it appears only when a problem occurs.
 - `wishlist_tolerance_percent`: if a price is within this percent of the all-time low, the bot sends an alert. The default is `0`, which means exactly at the low.
 - `sources`: set one source to `false` to turn it off. The names are `free_games`, `ps_plus`, `fanatical`, and `wishlist`.
+
+## Run status
+
+Each summary ends with a "Run status" box. The box shows how many sources worked, how many new items the bot found, and how long the run took.
+
+The color of the box shows the result:
+
+- Green: all sources worked.
+- Yellow: all sources worked, but the bot found a problem. For example, a wishlist title is not on IsThereAnyDeal.
+- Red: at least one source failed. The box names the source and the error.
+
+If a source fails, the other sources still post. If the whole run fails, the bot posts a short red "Run failed" message. If Discord itself is down, the bot cannot post, and the error appears only in `docker compose logs`.
+
+The bot removes your API key and your webhook URL from the status box and from the log.
 
 ## What to expect
 

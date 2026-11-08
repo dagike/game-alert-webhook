@@ -50,3 +50,27 @@ def test_fetch_combines_sources_and_tolerates_gog_201():
     respx.get(GAMERPOWER_URL).mock(side_effect=gp)
     items = FreeGames().fetch()
     assert {i.note for i in items} == {"Epic Games Store", "Steam"}
+
+
+@respx.mock
+def test_epic_failure_is_a_warning_when_gamerpower_works():
+    respx.get(EPIC_URL).mock(return_value=httpx.Response(500))
+    respx.get(GAMERPOWER_URL).mock(
+        side_effect=lambda r: httpx.Response(200, json=load("gamerpower_steam.json"))
+        if r.url.params["platform"] == "steam"
+        else httpx.Response(201, json={"status": 0})
+    )
+    source = FreeGames()
+    items = source.fetch()
+    assert items and all(i.note == "Steam" for i in items)
+    assert len(source.warnings) == 1 and "Epic" in source.warnings[0]  # GOG 201 is not a warning
+
+
+@respx.mock
+def test_all_free_game_sources_failing_raises():
+    import pytest
+
+    respx.get(EPIC_URL).mock(return_value=httpx.Response(500))
+    respx.get(GAMERPOWER_URL).mock(return_value=httpx.Response(503))
+    with pytest.raises(RuntimeError):
+        FreeGames().fetch()

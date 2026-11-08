@@ -42,8 +42,15 @@ class PsPlus:
 
     def __init__(self, client: httpx.Client | None = None):
         self.client = client or httpx.Client(timeout=20, headers={"User-Agent": "game-alert-webhook"})
+        self.warnings: list[str] = []
 
     def fetch(self) -> list[Item]:
         r = self.client.get(FEED_URL)
         r.raise_for_status()
-        return parse_feed(r.text)[:1]  # only the newest monthly post counts as new
+        items = parse_feed(r.text)
+        self.warnings = []
+        if not items:
+            self.warnings.append(
+                "No 'Monthly Games' post in the PlayStation Blog feed. The title format may have changed."
+            )
+        return items[:1]  # only the newest monthly post counts as new

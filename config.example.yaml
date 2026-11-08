@@ -4,6 +4,7 @@ run_times: ["09:00", "21:00"]   # two summaries per day, 24-hour clock
 country: CA
 currency: CAD
 post_when_empty: true            # post a short "No new deals" line when nothing is new
+report_when_ok: true             # show the "Run status" embed even when all sources are OK
 wishlist_tolerance_percent: 0    # 5 means: alert when within 5% of the all-time low
 wishlist_file: wishlist.yaml
 database_path: data/state.db
