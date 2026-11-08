@@ -14,7 +14,7 @@ SITE = "https://www.fanatical.com/en"
 CDN = "https://cdn.fanatical.com/production/product/400x225/"
 PROMO_TYPES = {"TakeOver", "SlimBanner", "CarouselBackground"}
 SKIP_PROMO = re.compile(r"pre-?order|upcoming|coming soon", re.IGNORECASE)
-SUFFIX = re.compile(r"\s+(footer banner|home page|filter backgrounds|slim banner|banner|deals|take ?over)$", re.IGNORECASE)
+SUFFIX = re.compile(r"\s+(footer banner|home page|filter backgrounds|slim banner|banner|deals|tak(?:e ?)?over)$", re.IGNORECASE)
 
 
 def _dt(value: str | None) -> datetime | None:

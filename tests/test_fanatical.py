@@ -44,3 +44,9 @@ def test_promotion_expires():
 def test_fetch():
     respx.get(API_URL).mock(return_value=httpx.Response(200, json=DATA))
     assert any(i.note == "Bundle" for i in Fanatical(clock=lambda: NOW).fetch())
+
+
+def test_misspelled_takeover_suffix_is_removed():
+    data = {"images": [{"name": "Black friday Takover", "advert_type": "TakeOver",
+                        "start_date": "2025-10-31T00:00:00.000Z", "end_date": "2026-12-31T08:00:00.000Z"}]}
+    assert [i.title for i in parse_promotions(data, NOW)] == ["Black friday"]
