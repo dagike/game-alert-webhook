@@ -78,3 +78,19 @@ def test_post_payload_has_summary_embed():
     route = respx.post(URL).mock(return_value=httpx.Response(204))
     run_once(settings(), sources=[Fake("free_games", [it(1)])], state=State(":memory:"))
     assert json.loads(route.calls[0].request.content)["embeds"][0]["title"] == "Free games"
+
+
+def test_humble_source_is_enabled_by_default_and_can_be_turned_off():
+    from gamealert.runner import build_sources
+
+    names = [s.name for s in build_sources(Settings(wishlist_file="none.yaml"))]
+    assert names == ["free_games", "ps_plus", "fanatical", "humble", "wishlist"]
+    off = Settings(sources={"humble": False}, wishlist_file="none.yaml")
+    assert "humble" not in [s.name for s in build_sources(off)]
+
+
+def test_humble_section_has_its_own_title():
+    from gamealert.discord import build_embeds
+
+    item = Item(source="humble", id="b1", title="Flat2VR Bundle", url="https://x")
+    assert build_embeds({"humble": [item]})[0]["title"] == "Humble Bundle games"

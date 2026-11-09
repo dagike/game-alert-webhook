@@ -12,4 +12,5 @@ sources:
   free_games: true
   ps_plus: true
   fanatical: true
+  humble: true
   wishlist: true

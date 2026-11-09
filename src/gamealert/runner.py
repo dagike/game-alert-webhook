@@ -12,6 +12,7 @@ from .report import RunReport
 from .sources.base import Item, Source
 from .sources.fanatical import Fanatical
 from .sources.freegames import FreeGames
+from .sources.humble import Humble
 from .sources.psplus import PsPlus
 from .sources.wishlist import Wishlist
 from .state import State
@@ -43,6 +44,8 @@ def build_sources(settings: Settings) -> list[Source]:
         sources.append(PsPlus())
     if enabled.fanatical:
         sources.append(Fanatical(settings.currency))
+    if enabled.humble:
+        sources.append(Humble())
     if enabled.wishlist:
         sources.append(
             Wishlist(

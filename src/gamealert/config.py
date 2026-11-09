@@ -22,6 +22,7 @@ class Sources(BaseModel):
     free_games: bool = True
     ps_plus: bool = True
     fanatical: bool = True
+    humble: bool = True
     wishlist: bool = True
 
 
