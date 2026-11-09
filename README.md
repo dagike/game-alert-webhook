@@ -8,6 +8,7 @@ This bot posts a game deal summary to a Discord channel two times per day. It ru
 - The newest PlayStation Plus Essential monthly games.
 - New Fanatical bundles and sales promotions.
 - New Humble Bundle bundles in the Games category. Book and software bundles are not included.
+- The new Humble Choice month, with the list of its games.
 - Games from your wishlist that reach their all-time low price.
 
 Each summary lists only items that are new since the last summary. A small SQLite file in `data/` remembers what the bot already sent.
@@ -19,6 +20,7 @@ Each summary lists only items that are new since the last summary. A small SQLit
 - PlayStation Plus: the PlayStation Blog feed.
 - Fanatical: the public JSON that the Fanatical website uses. Fanatical has no official API. If Fanatical changes its site, this source can break. The other sources keep working.
 - Humble Bundle: the data block on the humblebundle.com/games page. Humble has no official API, so this source can break in the same way. The page shows no prices, so each item shows its end date and a short description.
+- Humble Choice: the Humble Bundle membership pages. The bot reads two pages, one for the current month and one for its games. Humble has no official API, so this source can break in the same way.
 - Wishlist prices and all-time lows: the IsThereAnyDeal API. It needs a free key.
 
 ## What you need
@@ -133,7 +135,7 @@ Edit `config/config.yaml`, then restart with `docker compose restart`. The file 
 - `post_when_empty`: if `true`, the bot also posts a short "no new deals" line when nothing is new. The default is `false`. The bot always posts when a problem occurs.
 - `report_when_ok`: if `true`, the "Run status" box appears in every summary. If `false`, it appears only when a problem occurs.
 - `wishlist_tolerance_percent`: if a price is within this percent of the all-time low, the bot sends an alert. The default is `0`, which means exactly at the low.
-- `sources`: set one source to `false` to turn it off. The names are `free_games`, `ps_plus`, `fanatical`, `humble`, and `wishlist`.
+- `sources`: set one source to `false` to turn it off. The names are `free_games`, `ps_plus`, `fanatical`, `humble`, `humble_choice`, and `wishlist`.
 
 ## Run status
 
@@ -151,7 +153,7 @@ The bot removes your API key and your webhook URL from the status box and from t
 
 ## What to expect
 
-- On the first run, the summary lists all current Fanatical promotions and all current Humble game bundles. For example, it lists the long-running mystery game promotion. Later summaries list only new ones.
+- On the first run, the summary lists all current Fanatical promotions and all current Humble game bundles and the current Humble Choice month. For example, it lists the long-running mystery game promotion. Later summaries list only new ones.
 - Some Steam giveaways have conditions, for example a key that needs reward points from a partner site. GamerPower lists them as free, and so does the bot.
 - When Sony publishes the post for a new month, the bot lists it. Sony usually publishes it near the end of the previous month.
 - If one source fails, the other sources still post.

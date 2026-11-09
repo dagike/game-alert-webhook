@@ -23,6 +23,7 @@ class Sources(BaseModel):
     ps_plus: bool = True
     fanatical: bool = True
     humble: bool = True
+    humble_choice: bool = True
     wishlist: bool = True
 
 

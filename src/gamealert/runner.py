@@ -13,6 +13,7 @@ from .sources.base import Item, Source
 from .sources.fanatical import Fanatical
 from .sources.freegames import FreeGames
 from .sources.humble import Humble
+from .sources.humble_choice import HumbleChoice
 from .sources.psplus import PsPlus
 from .sources.wishlist import Wishlist
 from .state import State
@@ -46,6 +47,8 @@ def build_sources(settings: Settings) -> list[Source]:
         sources.append(Fanatical(settings.currency))
     if enabled.humble:
         sources.append(Humble())
+    if enabled.humble_choice:
+        sources.append(HumbleChoice())
     if enabled.wishlist:
         sources.append(
             Wishlist(

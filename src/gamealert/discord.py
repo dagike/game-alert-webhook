@@ -14,6 +14,7 @@ TITLES = {
     "ps_plus": "PlayStation Plus Essential",
     "fanatical": "Fanatical bundles and sales",
     "humble": "Humble Bundle games",
+    "humble_choice": "Humble Choice",
     "wishlist": "Wishlist all-time lows",
 }
 COLORS = {
@@ -21,6 +22,7 @@ COLORS = {
     "ps_plus": 0x0070D1,
     "fanatical": 0xF39C12,
     "humble": 0xCC2929,
+    "humble_choice": 0x8E44AD,
     "wishlist": 0xE74C3C,
 }
 DESC_LIMIT = 3800  # Discord allows 4096 per embed description
