@@ -23,10 +23,11 @@ def test_only_live_game_bundles():
 def test_fields():
     flat = parse_games_page(HTML, NOW)[0][0]
     assert flat.id == "bundle:flat2vr_bundle"
+    assert flat.price == "$11.23 CAD"
     assert flat.url == "https://www.humblebundle.com/games/flat2vr-bundle"
     assert flat.end_date == "2026-11-11"
-    assert flat.note == "Bundle: Play flat games in VR"
-    assert flat.source == "humble" and flat.image.endswith("flat2vr_bundle.png")
+    assert flat.note == "Bundle of 2 items: Game A, Game B"
+    assert flat.source == "humble" and flat.image.endswith("flat2vr_bundle.jpg")
 
 
 def test_bundle_ends_exactly_at_end_time():
@@ -35,12 +36,12 @@ def test_bundle_ends_exactly_at_end_time():
 
 
 def test_missing_block_raises():
-    with pytest.raises(ValueError, match="landingPage-json-data"):
+    with pytest.raises(ValueError, match="feedItems"):
         parse_games_page("<html></html>", NOW)
 
 
 def test_empty_games_list_warns():
-    html = HTML.replace('"games": {"mosaic"', '"games_gone": {"mosaic"')
+    html = '<script>self.__next_f.push([1,"{\\"feedItems\\":[]}"])</script>'
     items, warnings = parse_games_page(html, NOW)
     assert items == [] and "page format may have changed" in warnings[0]
 

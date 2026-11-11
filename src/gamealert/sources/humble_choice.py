@@ -2,65 +2,45 @@
 
 from __future__ import annotations
 
-import json
 import re
 
 import httpx
 
 from .base import Item
+from .humble_page import flight_text, json_list
 
 SITE = "https://www.humblebundle.com"
 MEMBERSHIP_URL = f"{SITE}/membership"
-SUFFIX = " Humble Choice"
+MONTH_RE = re.compile(r"Get ([A-Z][a-z]+) (\d{4}) Humble Choice")
+PRICE_RE = re.compile(r"subscribe for just (\$[\d.,]+) per month")
 
 
-def _block(html: str, script_id: str) -> dict:
-    """Return the JSON in <script id=script_id>. Raise ValueError if the block is missing."""
-    match = re.search(
-        rf'<script id="{re.escape(script_id)}" type="application/json">(.*?)</script>', html, re.DOTALL
-    )
-    if not match:
-        raise ValueError(f"Humble Bundle page has no {script_id} block")
-    return json.loads(match.group(1))
+def _is_game(product: dict) -> bool:
+    """Skip entries that are not games, for example the IGN Plus subscription."""
+    ident = (product.get("id") or "").lower()
+    return not ("coupon" in ident or "ignplus" in ident or "subscription" in (product.get("title") or "").lower())
 
 
-def choice_slug(machine_name: str) -> str:
-    """november_2026_choice -> november-2026"""
-    return machine_name.removesuffix("_choice").replace("_", "-")
-
-
-def parse_membership(html: str) -> dict:
-    """Return machine_name, title, end_date and price for the active Choice month."""
-    data = _block(html, "webpack-choice-marketing-data")
-    machine_name = data.get("activeContentMachineName")
-    if not machine_name:
-        raise ValueError("Humble Choice page has no activeContentMachineName")
-    nav = data.get("navbarOptions") or {}
-    human = nav.get("productHumanName") or choice_slug(machine_name).replace("-", " ").title()
-    month = human.removesuffix(SUFFIX)
-    money = data.get("baseSubscriptionPrice|money") or {}
-    price = f"${money['amount']:.2f} {money['currency']} per month" if money else ""
-    return {
-        "machine_name": machine_name,
-        "title": f"Humble Choice: {month}",
-        "end_date": (nav.get("activeContentEndDate|datetime") or "")[:10],
-        "price": price,
+def parse_membership(html: str) -> tuple[dict, list[dict]]:
+    """Return (month info, games). Raise ValueError if the page has no Choice data."""
+    text = flight_text(html)
+    products = json_list(text, "subscriptionProducts")
+    month = MONTH_RE.search(text)
+    if products is None or month is None:
+        raise ValueError("Humble Choice page has no subscriptionProducts list or month name")
+    price = PRICE_RE.search(text)
+    name, year = month.group(1), month.group(2)
+    info = {
+        "machine_name": f"{name.lower()}_{year}_choice",
+        "title": f"Humble Choice: {name} {year}",
+        "price": f"{price.group(1)} per month" if price else "",
     }
-
-
-def parse_month(html: str) -> list[dict]:
-    """Return the games (title, image) of one Choice month, in display order."""
-    data = _block(html, "webpack-monthly-product-data")
-    choice = (data.get("contentChoiceOptions") or {}).get("contentChoiceData") or {}
-    games = choice.get("game_data") or {}
-    result = []
-    for game_id in choice.get("display_order") or []:
-        # Skip entries that are not games, for example an IGN Plus coupon.
-        if "coupon" in game_id or game_id not in games:
-            continue
-        game = games[game_id]
-        result.append({"title": game.get("title", game_id), "image": game.get("image", "")})
-    return result
+    games = [
+        {"title": p.get("title", p.get("id", "")), "image": p.get("thumbnail", "")}
+        for p in products
+        if _is_game(p)
+    ]
+    return info, games
 
 
 class HumbleChoice:
@@ -76,14 +56,7 @@ class HumbleChoice:
         self.warnings = []
         r = self.client.get(MEMBERSHIP_URL)
         r.raise_for_status()
-        info = parse_membership(r.text)
-        url = f"{MEMBERSHIP_URL}/{choice_slug(info['machine_name'])}"
-        r = self.client.get(url)
-        if r.status_code == 404:
-            self.warnings.append(f"Humble Choice page not found for {info['title']}")
-            return []
-        r.raise_for_status()
-        games = parse_month(r.text)
+        info, games = parse_membership(r.text)
         if not games:
             self.warnings.append(f"No games listed yet for {info['title']}")
             return []
@@ -92,9 +65,8 @@ class HumbleChoice:
                 source="humble_choice",
                 id=f"choice:{info['machine_name']}",
                 title=info["title"],
-                url=url,
+                url=MEMBERSHIP_URL,
                 price=info["price"],
-                end_date=info["end_date"],
                 image=games[0]["image"],
                 note=", ".join(g["title"] for g in games),
             )

@@ -19,8 +19,8 @@ Each summary lists only items that are new since the last summary. A small SQLit
 - Steam and GOG giveaways: the GamerPower API. It needs no key.
 - PlayStation Plus: the PlayStation Blog feed.
 - Fanatical: the public JSON that the Fanatical website uses. Fanatical has no official API. If Fanatical changes its site, this source can break. The other sources keep working.
-- Humble Bundle: the data block on the humblebundle.com/games page. Humble has no official API, so this source can break in the same way. The page shows no prices, so each item shows its end date and a short description.
-- Humble Choice: the Humble Bundle membership pages. The bot reads two pages, one for the current month and one for its games. Humble has no official API, so this source can break in the same way.
+- Humble Bundle: the data that the humblebundle.com/games page embeds. Humble has no official API, so this source can break in the same way. Each item shows its starting price, its end date, and the games in it.
+- Humble Choice: the data that the humblebundle.com/membership page embeds. The bot reads this one page for the month name and its games. Humble has no official API, so this source can break in the same way.
 - Wishlist prices and all-time lows: the IsThereAnyDeal API. It needs a free key.
 
 ## What you need
