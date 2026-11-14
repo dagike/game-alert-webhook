@@ -20,6 +20,7 @@ class Env(BaseSettings):
 
 class Sources(BaseModel):
     free_games: bool = True
+    prime: bool = True
     ps_plus: bool = True
     fanatical: bool = True
     humble: bool = True

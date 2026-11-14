@@ -14,6 +14,7 @@ from .sources.fanatical import Fanatical
 from .sources.freegames import FreeGames
 from .sources.humble import Humble
 from .sources.humble_choice import HumbleChoice
+from .sources.prime import Prime
 from .sources.psplus import PsPlus
 from .sources.wishlist import Wishlist
 from .state import State
@@ -41,6 +42,8 @@ def build_sources(settings: Settings) -> list[Source]:
     sources: list[Source] = []
     if enabled.free_games:
         sources.append(FreeGames(settings.country))
+    if enabled.prime:
+        sources.append(Prime())
     if enabled.ps_plus:
         sources.append(PsPlus())
     if enabled.fanatical:

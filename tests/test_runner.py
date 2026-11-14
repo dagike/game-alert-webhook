@@ -84,7 +84,7 @@ def test_humble_source_is_enabled_by_default_and_can_be_turned_off():
     from gamealert.runner import build_sources
 
     names = [s.name for s in build_sources(Settings(wishlist_file="none.yaml"))]
-    assert names == ["free_games", "ps_plus", "fanatical", "humble", "humble_choice", "wishlist"]
+    assert names == ["free_games", "prime", "ps_plus", "fanatical", "humble", "humble_choice", "wishlist"]
     off = Settings(sources={"humble": False}, wishlist_file="none.yaml")
     assert "humble" not in [s.name for s in build_sources(off)]
 

@@ -10,6 +10,7 @@ wishlist_file: wishlist.yaml
 database_path: data/state.db
 sources:
   free_games: true
+  prime: true
   ps_plus: true
   fanatical: true
   humble: true

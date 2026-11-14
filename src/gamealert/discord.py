@@ -11,6 +11,7 @@ from .sources.base import Item
 
 TITLES = {
     "free_games": "Free games",
+    "prime": "Amazon Prime free games",
     "ps_plus": "PlayStation Plus Essential",
     "fanatical": "Fanatical bundles and sales",
     "humble": "Humble Bundle games",
@@ -19,6 +20,7 @@ TITLES = {
 }
 COLORS = {
     "free_games": 0x2ECC71,
+    "prime": 0x00A8E1,
     "ps_plus": 0x0070D1,
     "fanatical": 0xF39C12,
     "humble": 0xCC2929,
