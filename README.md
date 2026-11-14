@@ -18,7 +18,7 @@ Each summary lists only items that are new since the last summary. A small SQLit
 
 - Epic Games Store: the official free games API.
 - Steam and GOG giveaways: the GamerPower API. It needs no key.
-- Amazon Prime: the Amazon Luna claims page (luna.amazon.com/claims). Amazon has no official API and no key. The bot loads the page, then asks the data service that the page uses. Amazon can block this request or change the service. If that happens, the "Run status" box shows an error for this source only.
+- Amazon Prime: the Amazon Luna claims page (luna.amazon.com/claims). Amazon has no official API and no key. The bot loads the page, then asks the data service that the page uses. Amazon can block this request or change the service. If Amazon fails, the bot reads the r/FreeGameFindings feed on Reddit instead. The "Run status" box shows an error only if both fail. Each item says "via Amazon" or "via Reddit". The Reddit feed has no end date.
 - PlayStation Plus: the PlayStation Blog feed.
 - Fanatical: the public JSON that the Fanatical website uses. Fanatical has no official API. If Fanatical changes its site, this source can break. The other sources keep working.
 - Humble Bundle: the data that the humblebundle.com/games page embeds. Humble has no official API, so this source can break in the same way. Each item shows its starting price, its end date, and the games in it.
