@@ -1,0 +1,7 @@
+{"data":{"items":{"items":[
+{"id":"ext1","isFGWP":false,"category":"EXTERNAL","assets":{"title":"NBA The Run","externalClaimLink":"https://luna.amazon.com/game/nba-the-run/B0HQ5N3DWK?ref=x"},"offers":[{"startTime":"2026-11-05T19:00:00Z","endTime":"2026-12-03T19:00:00Z"}]},
+{"id":"g1","isFGWP":true,"category":"FULL_GAME","assets":{"title":"Jurassic World Evolution 2","externalClaimLink":"https://gaming.amazon.com/jurassic-world-evolution-2-epic/dp/g1?ref_=x"},"offers":[{"startTime":"2026-11-12T18:00:00Z","endTime":"2026-12-16T18:00:00Z"}]},
+{"id":"g2","isFGWP":true,"category":"FULL_GAME","assets":{"title":"Squirrel with a Gun","externalClaimLink":"https://gaming.amazon.com/squirrel-with-a-gun-aga/dp/g2?ref_=x"},"offers":[{"startTime":"2026-11-05T18:00:00Z","endTime":"2026-12-09T18:00:00Z"}]},
+{"id":"g3","isFGWP":true,"category":"FULL_GAME","assets":{"title":"Some GOG Game","externalClaimLink":"https://gaming.amazon.com/some-gog-game-gog/dp/g3?ref_=x"},"offers":[{"startTime":"2026-10-01T18:00:00Z","endTime":"2026-11-01T18:00:00Z"}]},
+{"id":"g4","isFGWP":true,"category":"FULL_GAME","assets":{"title":"Future Game","externalClaimLink":"https://gaming.amazon.com/future-game/dp/g4?ref_=x"},"offers":[{"startTime":"2026-12-01T18:00:00Z","endTime":"2027-01-01T18:00:00Z"}]}
+]}}}
