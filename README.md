@@ -153,6 +153,17 @@ If a source fails, the other sources still post. If the whole run fails, the bot
 
 The bot removes your API key and your webhook URL from the status box and from the log.
 
+## Uptime Kuma
+
+The bot can tell an Uptime Kuma push monitor that each run finished.
+
+1. In Uptime Kuma, click Add New Monitor and set Monitor Type to Push.
+2. Set Heartbeat Interval to 86400 seconds and Retries to 1. The longest gap between runs is about 20 hours.
+3. Copy the Push URL and add it to `.env` as `HEARTBEAT_URL=...`. Remove the `?status=up&msg=OK&ping=` part from the end.
+4. Run `docker compose up -d` to apply the change.
+
+After each run, the bot sends `status=up`. If a source failed, it sends `status=down` with the source names. If the bot stops running, Uptime Kuma raises an alert when the interval ends with no call.
+
 ## What to expect
 
 - On the first run, the summary lists all current Fanatical promotions and all current Humble game bundles and the current Humble Choice month. For example, it lists the long-running mystery game promotion. Later summaries list only new ones.

@@ -16,6 +16,7 @@ class Env(BaseSettings):
 
     discord_webhook_url: str = ""
     itad_api_key: str = ""
+    heartbeat_url: str = ""
 
 
 class Sources(BaseModel):
@@ -41,6 +42,7 @@ class Settings(BaseModel):
     sources: Sources = Field(default_factory=Sources)
     discord_webhook_url: str = ""
     itad_api_key: str = ""
+    heartbeat_url: str = ""
 
     def parsed_run_times(self) -> list[tuple[int, int]]:
         """Return run_times as (hour, minute) pairs. Raise ValueError on a bad value."""
@@ -69,6 +71,7 @@ def load_settings(config_path: str | Path = "config.yaml", env_file: str | Path 
     env = Env(_env_file=env_file)
     data["discord_webhook_url"] = env.discord_webhook_url
     data["itad_api_key"] = env.itad_api_key
+    data["heartbeat_url"] = env.heartbeat_url
     return Settings(**data)
 
 

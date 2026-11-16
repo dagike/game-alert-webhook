@@ -94,3 +94,24 @@ def test_humble_section_has_its_own_title():
 
     item = Item(source="humble", id="b1", title="Flat2VR Bundle", url="https://x")
     assert build_embeds({"humble": [item]})[0]["title"] == "Humble Bundle games"
+
+
+@respx.mock
+def test_heartbeat_up_and_down():
+    respx.post(URL).mock(return_value=httpx.Response(204))
+    beat = respx.get("https://kuma.test/api/push/abc").mock(return_value=httpx.Response(200))
+    cfg = settings(heartbeat_url="https://kuma.test/api/push/abc")
+    run_once(cfg, sources=[Fake("free_games", [it(1)])], state=State(":memory:"))
+    assert beat.calls.last.request.url.params["status"] == "up"
+    run_once(cfg, sources=[Fake("prime", error=ValueError("x"))], state=State(":memory:"))
+    assert beat.calls.last.request.url.params["status"] == "down"
+    assert "prime" in beat.calls.last.request.url.params["msg"]
+
+
+@respx.mock
+def test_heartbeat_failure_does_not_break_run():
+    respx.post(URL).mock(return_value=httpx.Response(204))
+    respx.get("https://kuma.test/api/push/abc").mock(return_value=httpx.Response(500))
+    cfg = settings(heartbeat_url="https://kuma.test/api/push/abc")
+    result = run_once(cfg, sources=[Fake("free_games", [it(1)])], state=State(":memory:"))
+    assert result.messages_sent == 1

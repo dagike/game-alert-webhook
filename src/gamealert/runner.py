@@ -6,9 +6,11 @@ import logging
 import time
 from dataclasses import dataclass, field
 
+import httpx
+
 from .config import Settings, load_wishlist
 from .discord import build_embeds, send_summary
-from .report import RunReport
+from .report import RunReport, redact
 from .sources.base import Item, Source
 from .sources.fanatical import Fanatical
 from .sources.freegames import FreeGames
@@ -34,7 +36,7 @@ class RunResult:
 
 
 def secret_values(settings: Settings) -> list[str]:
-    return [settings.itad_api_key, settings.discord_webhook_url]
+    return [settings.itad_api_key, settings.discord_webhook_url, settings.heartbeat_url]
 
 
 def build_sources(settings: Settings) -> list[Source]:
@@ -62,6 +64,19 @@ def build_sources(settings: Settings) -> list[Source]:
             )
         )
     return sources
+
+
+def send_heartbeat(settings: Settings, report: RunReport) -> None:
+    """Tell an Uptime Kuma push monitor that the run finished. Never raise."""
+    if not settings.heartbeat_url:
+        return
+    failed = report.failed_sources
+    params = {"status": "down" if failed else "up"}
+    params["msg"] = redact("failed: " + ", ".join(failed), report.secrets) if failed else "OK"
+    try:
+        httpx.get(settings.heartbeat_url, params=params, timeout=10).raise_for_status()
+    except Exception as exc:  # noqa: BLE001 - a broken monitor must not break the bot
+        log.warning("Heartbeat failed: %s", redact(f"{type(exc).__name__}", report.secrets))
 
 
 def render_text(
@@ -119,6 +134,7 @@ def run_once(
         )
         # Mark items as sent only after Discord accepted the message.
         state.mark_sent([i for items in result.sections.values() for i in items])
+        send_heartbeat(settings, report)
         return result
     finally:
         if own_state:
