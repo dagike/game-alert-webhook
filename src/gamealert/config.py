@@ -31,7 +31,7 @@ class Sources(BaseModel):
 
 class Settings(BaseModel):
     timezone: str = "America/Toronto"
-    run_times: list[str] = Field(default_factory=lambda: ["09:00", "13:05"])
+    run_times: list[str] = Field(default_factory=lambda: ["08:00", "13:05", "19:00", "00:00"])
     country: str = "CA"
     currency: str = "CAD"
     post_when_empty: bool = False

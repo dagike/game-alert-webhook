@@ -1,6 +1,6 @@
 # Copy this file to config.yaml to change the defaults.
 timezone: America/Toronto
-run_times: ["09:00", "13:05"]   # two checks per day, 24-hour clock
+run_times: ["08:00", "13:05", "19:00", "00:00"]   # four checks per day, 24-hour clock
 country: CA
 currency: CAD
 post_when_empty: false           # true = also post "no new deals" when nothing is new. Problems always post.

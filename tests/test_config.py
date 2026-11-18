@@ -5,9 +5,9 @@ from gamealert.config import Settings, load_settings, load_wishlist
 
 def test_defaults_when_no_files(tmp_path):
     s = load_settings(tmp_path / "none.yaml", tmp_path / "none.env")
-    assert s.run_times == ["09:00", "13:05"]
+    assert s.run_times == ["08:00", "13:05", "19:00", "00:00"]
     assert s.country == "CA"
-    assert s.parsed_run_times() == [(9, 0), (13, 5)]
+    assert s.parsed_run_times() == [(8, 0), (13, 5), (19, 0), (0, 0)]
     assert s.post_when_empty is False
 
 

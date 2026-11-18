@@ -1,4 +1,4 @@
-"""Run the summary at fixed times each day (default 09:00 and 21:00)."""
+"""Run the summary at fixed times each day (default four times a day)."""
 
 from __future__ import annotations
 
