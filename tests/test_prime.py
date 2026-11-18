@@ -130,3 +130,13 @@ def test_both_failed_raises_and_names_both():
     respx.get(REDDIT_URL).mock(return_value=httpx.Response(429))
     with pytest.raises(RuntimeError, match="Amazon failed: HTTP 403. Reddit failed: HTTP 429"):
         Prime(clock=lambda: NOW).fetch()
+
+
+@respx.mock
+def test_amazon_country_redirect_is_followed():
+    ca = "https://luna.amazon.ca"
+    respx.get(PAGE_URL).mock(return_value=httpx.Response(302, headers={"location": f"{ca}/claims/home"}))
+    respx.get(f"{ca}/claims/home").mock(return_value=httpx.Response(200, text=HTML))
+    post = respx.post(f"{ca}/graphql").mock(return_value=httpx.Response(200, json=DATA))
+    items = Prime(clock=lambda: NOW).fetch()
+    assert items and post.called

@@ -127,7 +127,7 @@ class Prime:
     name = "prime"
 
     def __init__(self, client: httpx.Client | None = None, clock=None):
-        self.client = client or httpx.Client(timeout=30, headers={"User-Agent": USER_AGENT})
+        self.client = client or httpx.Client(timeout=30, headers={"User-Agent": USER_AGENT}, follow_redirects=True)
         self.clock = clock or (lambda: datetime.now(UTC))
         self.warnings: list[str] = []
 
@@ -135,8 +135,10 @@ class Prime:
         page = self.client.get(PAGE_URL)
         page.raise_for_status()
         token = parse_csrf(page.text)
+        # Amazon may send the page to a country site such as luna.amazon.ca. Post to the host that answered.
+        origin = f"{page.url.scheme}://{page.url.host}"
         r = self.client.post(
-            GRAPHQL_URL,
+            f"{origin}/graphql",
             json={"query": QUERY},
             headers={"client-id": "CarboniteApp", "csrf-token": token},
         )
